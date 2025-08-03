@@ -1,42 +1,49 @@
+// routes/productDetails.js
 import express from 'express';
 import multer from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 import Product from '../models/Product.js';
-import path from 'path';
-import fs from 'fs';
+import supabase from '../utils/supabaseClient.js';
 
 const router = express.Router();
-
-// Create uploads folder if not exists
-const uploadDir = 'uploads';
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Set up multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  },
-});
+const storage = multer.memoryStorage(); // use memory for buffer
 const upload = multer({ storage });
 
 // POST /api/products - Add product with image
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { name, description, price } = req.body;
-    const image = req.file ? `/uploads/${req.file.filename}` : null;
+    const { name, description, price, sellerId } = req.body;
 
-    if (!name || !description || !price || !image) {
-      return res.status(400).json({ error: 'All fields including image are required' });
+    if (!req.file) {
+      return res.status(400).json({ error: 'Image is required.' });
     }
+
+    const file = req.file;
+    const uniqueFilename = `${uuidv4()}-${file.originalname}`;
+
+    // Upload to Supabase
+    const { error: uploadError } = await supabase.storage
+      .from('product-images')
+      .upload(uniqueFilename, file.buffer, {
+        contentType: file.mimetype,
+      });
+
+    if (uploadError) {
+      console.error('Supabase upload error:', uploadError.message);
+      return res.status(500).json({ error: 'Image upload failed' });
+    }
+
+    // Get public URL
+    const { publicURL } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(uniqueFilename);
 
     const product = new Product({
       name,
       description,
       price,
-      image,
+      image: publicURL,
+      sellerId,
     });
 
     await product.save();
