@@ -16,7 +16,7 @@ const BuyerChat = () => {
   // Fetch all sellers (simulate API or connect to backend)
   useEffect(() => {
     if (!sellerId) {
-      fetch(`${API_URL}/sellers`)
+      fetch(`${API_URL}/api/sellers`)
         // Replace with your actual backend route
         .then(res => res.json())
         .then(data => setSellers(data))
