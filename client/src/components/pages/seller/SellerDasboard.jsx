@@ -123,7 +123,7 @@ const SellerDashboard = () => {
               {products.map((p) => (
                 <div key={p._id} className="col-md-4 mb-4">
                   <div className="card h-100 shadow-sm">
-                    <img src={`${API_URL}${p.image}`}
+                    <img src={p.image}
                       className="card-img-top"
                       alt={p.name}
                       style={{ height: '200px', objectFit: 'cover' }}
