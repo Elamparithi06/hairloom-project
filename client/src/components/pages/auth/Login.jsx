@@ -24,7 +24,7 @@ const Login = () => {
       return;
     }
     try {
-      await axios.post(`${API_URL}/auth/send-otp`, isMobile ? { phone: identifier } : { email: identifier });
+      await axios.post(`${API_URL}/api/auth/send-otp`, isMobile ? { phone: identifier } : { email: identifier });
       toast.success('OTP sent successfully!');
       setStep(2);
     } catch {
@@ -56,7 +56,7 @@ const Login = () => {
     }
     const payload = isMobile ? { phone: identifier, password } : { email: identifier, password };
     try {
-      const res = await axios.post(`${API_URL}/auth/login`, payload);
+      const res = await axios.post(`${API_URL}/api/auth/login`, payload);
       const { role } = res.data;
       sessionStorage.setItem('userRole', role);
       toast.success('Login successful!');
