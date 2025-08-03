@@ -20,6 +20,8 @@ const CreateAccount = () => {
     const SENDER_ID = "HNDLMS"; // ✅ Your approved 6-char sender ID
     const TEMPLATE_NAME = "HandloomConnect"; // ✅ Your approved template name (must include XXXX)
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -74,7 +76,7 @@ const CreateAccount = () => {
             const verifyResponse = await axios.get(url);
 
             if (verifyResponse.data.Details === 'OTP Matched') {
-                await axios.post('http://localhost:5000/api/auth/create-account', {
+                await axios.post(`${API_URL}/auth/create-account`, {
                     ...form,
                     role,
                 });

@@ -16,6 +16,8 @@ const SellerDashboard = () => {
   const [message, setMessage] = useState(''); // new state for success msg
   const [chats, setChats] = useState([]);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const SellerDashboard = () => {
   const tab = query.get('tab') || 'upload';
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(() => setProducts([]));
@@ -32,7 +34,7 @@ const SellerDashboard = () => {
   useEffect(() => {
     const sellerId = sessionStorage.getItem('sellerId'); // or however you're storing it
 
-    fetch(`http://localhost:5000/api/messages/${sellerId}`)
+    fetch(`${API_URL}/messages/${sellerId}`)
       .then(res => res.json())
       .then(data => setChats(data))
       .catch(() => setChats([]));
@@ -77,7 +79,7 @@ const SellerDashboard = () => {
     formData.append('image', document.querySelector('input[type="file"]').files[0]);
 
     try {
-      const res = await fetch('http://localhost:5000/api/products', {
+      const res = await fetch(`${API_URL}/products`, {
         method: 'POST',
         body: formData,
       });
@@ -121,7 +123,7 @@ const SellerDashboard = () => {
               {products.map((p) => (
                 <div key={p._id} className="col-md-4 mb-4">
                   <div className="card h-100 shadow-sm">
-                    <img src={`http://localhost:5000${p.image}`}
+                    <img src={`${API_URL}${p.image}`}
                       className="card-img-top"
                       alt={p.name}
                       style={{ height: '200px', objectFit: 'cover' }}

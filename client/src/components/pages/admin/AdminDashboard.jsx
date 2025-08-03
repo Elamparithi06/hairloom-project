@@ -21,18 +21,21 @@ const AdminDashboard = () => {
 
   const currentAdmin = JSON.parse(sessionStorage.getItem('user'));
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
+
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
-    const res = await axios.get('http://localhost:5000/api/admin/users');
+    const res = await axios.get(`${API_URL}/admin/users`);
     setUsers(res.data);
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:5000/api/admin/users/${id}`);
+    await axios.delete(`${API_URL}/admin/users/${id}`);
     fetchUsers();
   };
 
@@ -90,9 +93,9 @@ const AdminDashboard = () => {
 
     let response;
     if (editId) {
-      response = await axios.put(`http://localhost:5000/api/admin/users/${editId}`, payload);
+      response = await axios.put(`${API_URL}/admin/users/${editId}`, payload);
     } else {
-      response = await axios.post('http://localhost:5000/api/admin/users', payload);
+      response = await axios.post(`${API_URL}/admin/users`, payload);
     }
     // If seller, get sellerId from response
     if (response.data.sellerId) setSellerId(response.data.sellerId);

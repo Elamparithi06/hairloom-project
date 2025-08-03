@@ -12,6 +12,8 @@ const ProductDetails = () => {
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   // Dummy fetch for product
   useEffect(() => {
     const dummyProducts = [
@@ -53,7 +55,7 @@ const ProductDetails = () => {
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl">
       <img
-        src={product.image.startsWith('http') ? product.image : `http://localhost:5000/${product.image}`}
+        src={product.image.startsWith('http') ? product.image : `${API_URL}/${product.image}`}
         alt={product.name}
         className="card-img-top product-img"
       />

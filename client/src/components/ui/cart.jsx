@@ -7,6 +7,8 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate(); // 👈 Add this
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
@@ -37,7 +39,7 @@ const Cart = () => {
               <div className="col-md-4" key={item._id}>
                 <div className="card mb-3">
                   <img
-                    src={`http://localhost:5000${item.image}`}
+                    src={`${API_URL}${item.image}`}
                     className="card-img-top"
                     alt={item.name}
                   />

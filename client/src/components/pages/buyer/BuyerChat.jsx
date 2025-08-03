@@ -11,10 +11,12 @@ const BuyerChat = () => {
   const [newMsg, setNewMsg] = useState('');
   const [sellers, setSellers] = useState([]);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   // Fetch all sellers (simulate API or connect to backend)
   useEffect(() => {
     if (!sellerId) {
-      fetch('http://localhost:5000/api/sellers')
+      fetch(`${API_URL}/sellers`)
         // Replace with your actual backend route
         .then(res => res.json())
         .then(data => setSellers(data))

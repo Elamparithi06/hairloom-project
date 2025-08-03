@@ -16,13 +16,15 @@ const Login = () => {
   const isMobile = /^\d{10}$/.test(identifier.trim());
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier.trim());
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const sendOtp = async () => {
     if (!identifier.trim()) {
       toast.error('Please enter a valid email or 10-digit mobile number');
       return;
     }
     try {
-      await axios.post('http://localhost:5000/api/auth/send-otp', isMobile ? { phone: identifier } : { email: identifier });
+      await axios.post(`${API_URL}/auth/send-otp`, isMobile ? { phone: identifier } : { email: identifier });
       toast.success('OTP sent successfully!');
       setStep(2);
     } catch {
@@ -37,7 +39,7 @@ const Login = () => {
     }
     const payload = isMobile ? { phone: identifier, otp } : { email: identifier, otp };
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', payload);
+      const res = await axios.post(`${API_URL}/auth/verify-otp`, payload);
       const { role } = res.data;
       sessionStorage.setItem('userRole', role);
       toast.success('Login successful!');
@@ -54,7 +56,7 @@ const Login = () => {
     }
     const payload = isMobile ? { phone: identifier, password } : { email: identifier, password };
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', payload);
+      const res = await axios.post(`${API_URL}/auth/login`, payload);
       const { role } = res.data;
       sessionStorage.setItem('userRole', role);
       toast.success('Login successful!');
