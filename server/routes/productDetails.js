@@ -34,9 +34,17 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 
     // Get public URL
-    const { publicURL } = supabase.storage
-      .from('product-images')
-      .getPublicUrl(uniqueFilename);
+    const { data: urlData, error: urlError } = supabase.storage
+  .from('product-images')
+  .getPublicUrl(uniqueFilename);
+
+if (urlError) {
+  console.error('Public URL error:', urlError.message);
+  return res.status(500).json({ error: 'Failed to get image URL' });
+}
+
+const publicURL = urlData.publicUrl;
+
 
     const product = new Product({
       name,
