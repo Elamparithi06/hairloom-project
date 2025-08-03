@@ -8,11 +8,28 @@ const UploadProduct = () => {
   const [desc, setDesc] = useState('');
   const [isListening, setIsListening] = useState(false);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    const url = URL.createObjectURL(file);
-    setImage(url);
-  };
+  const handleUpload = async () => {
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('description', description);
+  formData.append('price', price);
+  formData.append('sellerId', sellerId);  // Seller ID from auth or context
+  formData.append('image', selectedFile); // selectedFile is from file input
+
+  try {
+    const res = await axios.post(`${API_URL}/api/products`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    toast.success(res.data.message || 'Product uploaded!');
+  } catch (err) {
+    console.error('Upload Error:', err);
+    toast.error('Failed to upload product.');
+  }
+};
+
 
   const handleVoiceInput = () => {
     const SpeechRecognition =
