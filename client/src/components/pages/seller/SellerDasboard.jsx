@@ -25,7 +25,7 @@ const SellerDashboard = () => {
   const tab = query.get('tab') || 'upload';
 
   useEffect(() => {
-    fetch(`${API_URL}/products`)
+    fetch(`${API_URL}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(() => setProducts([]));
@@ -34,7 +34,7 @@ const SellerDashboard = () => {
   useEffect(() => {
     const sellerId = sessionStorage.getItem('sellerId'); // or however you're storing it
 
-    fetch(`${API_URL}/messages/${sellerId}`)
+    fetch(`${API_URL}/api/messages/${sellerId}`)
       .then(res => res.json())
       .then(data => setChats(data))
       .catch(() => setChats([]));
@@ -79,7 +79,7 @@ const SellerDashboard = () => {
     formData.append('image', document.querySelector('input[type="file"]').files[0]);
 
     try {
-      const res = await fetch(`${API_URL}/products`, {
+      const res = await fetch(`${API_URL}/api/products`, {
         method: 'POST',
         body: formData,
       });
