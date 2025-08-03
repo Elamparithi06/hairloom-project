@@ -39,7 +39,7 @@ const Login = () => {
     }
     const payload = isMobile ? { phone: identifier, otp } : { email: identifier, otp };
     try {
-      const res = await axios.post(`${API_URL}/auth/verify-otp`, payload);
+      const res = await axios.post(`${API_URL}/api/auth/verify-otp`, payload);
       const { role } = res.data;
       sessionStorage.setItem('userRole', role);
       toast.success('Login successful!');
