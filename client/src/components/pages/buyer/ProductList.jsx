@@ -47,7 +47,7 @@ const ProductList = () => {
             <div key={product._id} className="col-md-4 mb-4">
               <div className="card h-100 shadow-sm product-card">
                 <img
-                  src={product.image ? `${API_URL}/${product.image}` : 'https://via.placeholder.com/400'}
+                  src={product.image || 'https://via.placeholder.com/400'}
                   className="card-img-top product-img"
                   alt={product.name}
                 />
