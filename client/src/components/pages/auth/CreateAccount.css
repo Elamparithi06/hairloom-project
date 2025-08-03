@@ -1,0 +1,98 @@
+.create-account-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+}
+
+.create-account-card {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 6px 32px rgba(30, 41, 59, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 340px;
+    max-width: 90vw;
+    gap: 1.5rem;
+}
+
+.create-account-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.role-btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.role-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background: #e5e7eb;
+    color: #1e293b;
+    transition: background 0.2s, color 0.2s;
+}
+
+.role-btn.selected-seller {
+    background: #2563eb;
+    color: #fff;
+}
+
+.role-btn.selected-buyer {
+    background: #22c55e;
+    color: #fff;
+}
+
+.create-account-input {
+    border: 1px solid #cbd5e1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border 0.2s;
+    background: #f1f5f9;
+}
+
+.create-account-input:focus {
+    border-color: #2563eb;
+    background: #fff;
+}
+
+.create-account-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background: #111827;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    transition: background 0.2s;
+}
+
+.create-account-btn:hover {
+    background: #2563eb;
+}
+
+.create-account-message {
+    text-align: center;
+    font-size: 1rem;
+    color: #dc2626;
+    margin: 0.5rem 0;
+    min-height: 1.2em;
+}

@@ -1,0 +1,63 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# === Node.js ===
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/package-lock.json
+**/pnpm-lock.yaml
+**/dist/
+
+# === Environment Variables ===
+**/.env
+**/.env.local
+**/.env.*.local
+
+# === Vite Build ===
+client/dist/
+client/.vite/
+
+# === Logs ===
+logs/
+*.log
+*.tsbuildinfo
+
+# === System Files ===
+.DS_Store
+Thumbs.db
+
+# === IDE / Editor Specific ===
+.vscode/
+.idea/
+*.swp
+
+# === Misc ===
+coverage/
+.env.production.local
+.env.development.local
+server/uploads/
+
